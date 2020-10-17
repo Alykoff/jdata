@@ -3,7 +3,17 @@
 
 https://clearspending.ru/opendata
 
-### Подготовка к индексации
+### Как запустить
+
+#### Установка зависимостей
+Требования: `docker`, `docker-compose`, `python3`, свободное место на жестком диске для индекса `elasticsearch`.
+Так же установите библиотеки `python3` из `requirements.txt`
+```bash
+pip3 install -r requirements.txt
+```
+
+
+#### Скачивание данных
 В корне проекта нужно создать папку `data`, и туда сложить выкаченные с url https://clearspending.ru/opendata данные в  формате `jsonl.zip`.
 
 
@@ -13,7 +23,24 @@ https://clearspending.ru/opendata
 contracts_223fz_202010-20201009.jsonl.zip --> contracts_223fz
 ```
 
-### Примеры поисковых запросов:
+#### Инициализация elasticsearch
+В файле `docker-compose.yml` нужно выставить актуальные пути для директории где будет храниться индекс:
+По умолчанию это `/Volumes/my_passport/.jdata_elastic`.
+
+После этого запускаем `elasticsearch` ноду:
+```bash
+docker-compose -f docker-compose.yml up
+```
+
+#### Создание индекса
+```bash
+python3 crate_indexes.py
+```
+#### Profit
+Теперь можно делать запросы к вашим `elasticsearch` индексам.
+
+
+### Примеры поисковых запросов
 
 ```bash
 curl -XGET 'localhost:9200/contracts_223fz/_search' \
