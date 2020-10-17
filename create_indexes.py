@@ -95,14 +95,14 @@ for jsonl_file in jsonl_files:
     index_name = get_index_name(jsonl_file)
     print(index_name)
     count_line = 0
-    end_line = 100
+    # end_line = 100
     with open(jsonl_file, 'r') as f:
         # try:
         while True:
             count_line += 1
-            if count_line >= end_line:
-                print('Break by end line condition: ' + str(end_line))
-                break
+            # if count_line >= end_line:
+            #     print('Break by end line condition: ' + str(end_line))
+            #     break
             line = f.readline()
             if line is None or line == '':
                 break
